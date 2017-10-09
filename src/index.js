@@ -1,10 +1,10 @@
+// Import Styles
+import 'semantic-ui-css/semantic.min.css';
+import './index.css';
 // Import Components
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MainComponent from './components/mainComponent';
-// Import Styles
-import 'semantic-ui-css/semantic.min.css';
-import './index.css';
 // Misc
 import registerServiceWorker from './registerServiceWorker';
 

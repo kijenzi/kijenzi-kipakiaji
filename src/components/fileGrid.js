@@ -1,7 +1,7 @@
 // Import components
 import React from 'react';
 import ItemGrid from './itemGrid';
-import { Card, Image, Button, Container } from 'semantic-ui-react';
+import { Card, Image, Button, Container, Loader, Dimmer } from 'semantic-ui-react';
 // Import assets
 import white_image from '../images/white-image.png';
 
@@ -10,13 +10,18 @@ class FileGrid extends React.Component {
         super();
         this.retrieveItems = this.retrieveItems.bind(this);
         this.state = {
-            items: []
+            items: [],
+            loading: true
         }
     }
 
     componentWillMount() {
+        // Wrap in promise or async/await
         const files = this.retrieveItems();
-        this.setState({items:files});
+        this.setState({
+            items:files,
+            loading: false
+        });
     }
 
     /**
@@ -77,8 +82,8 @@ class FileGrid extends React.Component {
             </Card.Content>
             <Card.Content extra>
                     <div className='ui two buttons'>
-                        <Button basic color='blue'>View Info</Button>
-                        <Button basic color='green'>Download</Button>
+                        <Button basic link color='blue'>View Info</Button>
+                        <Button basic link color='green'>Download</Button>
                     </div>
             </Card.Content>
         </Card>
@@ -90,7 +95,10 @@ class FileGrid extends React.Component {
         /*server, an image declaring that there are no files  */
         /*to be downloaded                                    */ 
         return (
-            <Container style={{ marginTop: '7em' }}>
+            <Container style={{ paddingTop: '7em' }}>
+                <Dimmer active>
+                    <Loader indeterminate>Finding files...</Loader>
+                </Dimmer>
                 <ItemGrid items={this.state.items} template={this.fileTemplate} />
             </Container>
         );
