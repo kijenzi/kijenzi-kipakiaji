@@ -70,6 +70,7 @@ typings/
 
 # misc
 .DS_Store
+settings.json
 .env.local
 .env.development.local
 .env.test.local

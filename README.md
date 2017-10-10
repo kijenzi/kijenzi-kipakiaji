@@ -95,6 +95,8 @@ Proceed at your own risk with non-UNIX environments.
     1. cd to the `api_server` directory
     2. Run `./setup_virtualenv.sh` and allow downloads to finish
 
-You now have a configured virtual environment to develop in the API with.
-When you want to stop developing for the api either exit your terminal or run `deactivate`.
-To start developing again run `./load_virtualenv.sh` in the `api_server` directory. 
+You now have a configured virtual environment to debug the API with.
+When you want to stop debugging for the api either exit your terminal or run `deactivate`.
+
+To start debugging again run `source .env/bin/activate` in the `api_server` directory. 
+### This is necessary to run an instance of the api
