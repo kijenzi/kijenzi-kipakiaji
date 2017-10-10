@@ -15,7 +15,7 @@ class FileGrid extends React.Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // Wrap in promise or async/await
         const files = this.retrieveItems();
         this.setState({
@@ -96,7 +96,7 @@ class FileGrid extends React.Component {
         /*to be downloaded                                    */ 
         return (
             <Container style={{ paddingTop: '7em' }}>
-                <Dimmer active>
+                <Dimmer active={this.state.loading}>
                     <Loader indeterminate>Finding files...</Loader>
                 </Dimmer>
                 <ItemGrid items={this.state.items} template={this.fileTemplate} />

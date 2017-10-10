@@ -5,17 +5,17 @@ class ItemGrid extends React.Component {
 
     constructor() {
         super();
-        this.mapItems = this.mapItems.bind(this);
         this.state = {
             items: []
         };
     }
 
-    componentDidMount() {
-        const props = this.props,
-            items = this.mapItems(props.items, props.template);
-        console.log(props);
-        this.setState({items:items});
+    componentWillReceiveProps(nextProps) {
+        if(this.props.items !== nextProps.items) {
+            const items =
+                this.mapItems(nextProps.items, nextProps.template);
+            this.setState({items:items});
+        }
     }
 
     /**
