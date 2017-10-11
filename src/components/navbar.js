@@ -1,6 +1,7 @@
 // Import Components
 import React from 'react';
 import {Menu, Container, Icon} from 'semantic-ui-react'
+import {Link} from 'react-router-dom';
 
 class Navbar extends React.Component { 
     render() {
@@ -12,7 +13,7 @@ class Navbar extends React.Component {
                         FileHub
                     </Menu.Item>
                     <Menu.Item link>
-                        Files
+                        <Link to='/'>Files</Link>
                     </Menu.Item>
                     <Menu.Menu position='right'>
                         <Menu.Item link>
