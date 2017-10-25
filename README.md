@@ -5,14 +5,17 @@ File database to allow users to Upload, View, Download, and Comment on files. Wr
 1. Install Git in order to clone this repository and eventually commit any changes you may make
 
   _OSX_
+  
     1. Install Brew at https://brew.sh
     2. Run `brew install git` in your favorite terminal
     
   _Linux_
+  
     1. Open your favorite terminal and make sure git is installed
     2. If it is not, use your distro's package manager to install it
     
   _Windows_
+  
     1. After enabling the Linux subsystem (Google it), check that git is installed
     2. If it is not, `apt-get install git` should be sufficient to get it installed
 2. Install some UNIX compatible editor (e.g.) Sublime Text, Vscode, Atom, vim, etc.
@@ -29,14 +32,17 @@ If using Windows, I __highly__ recommend using the Ubuntu Subsystem that provide
 1. Install Node and npm in order to install dependencies, compile/transpile react, and run our server
   
   _OSX_
+  
     1. After installing Brew, Open your favorite terminal and run `brew install node`
     2. Check that it is installed with `node -v`. This should return a version number in your terminal
   
   _Linux_
+  
     1. Open your favorite terminal and install using this [reference](https://nodejs.org/en/download/package-manager/)
     2. Check that it is installed with `node -v`. This should return a version number in your terminal
     
   _Windows_
+  
     1. In Bash, run `curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -` then `sudo apt-get install -y nodejs`
     2. Check that it is installed with `node -v`
     
@@ -79,23 +85,28 @@ Proceed at your own risk with non-UNIX environments.
 1. Install the python package manager 'pip'
 
    _OSX_
+   
     1. Run `sudo easy_install pip` in your terminal
     2. Check that it is installed with `python --version`. This should return a version number in your terminal
   
   _Linux_
+  
     1. Follow your distribution specific instructions, package managers have different instructions
 
 2. Install virtualenv to create a project-specific python environment
 
   _OSX_
+  
     1. Run `sudo pip install virtualenv` in your terminal
 
   _Linux_
+  
     1. Follow your distribution specific instructions, package managers have different instructions
 
 3. Setup virtualenv and install required python packages
 
 _UNIX_
+
     1. cd to the `api_server` directory
     2. Run `./setup_virtualenv.sh` and allow downloads to finish
 
