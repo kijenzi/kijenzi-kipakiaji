@@ -77,6 +77,7 @@ Proceed at your own risk with non-UNIX environments.
 
 ### Installation
 1. Install the python package manager 'pip'
+
    _OSX_
     1. Run `sudo easy_install pip` in your terminal
     2. Check that it is installed with `python --version`. This should return a version number in your terminal
@@ -85,13 +86,16 @@ Proceed at your own risk with non-UNIX environments.
     1. Follow your distribution specific instructions, package managers have different instructions
 
 2. Install virtualenv to create a project-specific python environment
+
   _OSX_
     1. Run `sudo pip install virtualenv` in your terminal
+
   _Linux_
     1. Follow your distribution specific instructions, package managers have different instructions
 
 3. Setup virtualenv and install required python packages
-  _UNIX_
+
+_UNIX_
     1. cd to the `api_server` directory
     2. Run `./setup_virtualenv.sh` and allow downloads to finish
 
