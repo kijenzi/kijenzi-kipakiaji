@@ -2,8 +2,9 @@
 import React from 'react';
 import {Menu, Container, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
+import NotImplemented from './notImplemented';
 
-class Navbar extends React.Component { 
+class Navbar extends React.Component {
     render() {
         return(
             <Menu fixed='top' inverted>
@@ -16,9 +17,11 @@ class Navbar extends React.Component {
                         <Link to='/'>Files</Link>
                     </Menu.Item>
                     <Menu.Menu position='right'>
-                        <Menu.Item link>
-                            Sign in
-                        </Menu.Item>
+                        {NotImplemented(
+                            <Menu.Item as={Link} to=''>
+                                Sign in
+                            </Menu.Item>
+                        )}
                     </Menu.Menu>
                 </Container>
             </Menu>

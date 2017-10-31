@@ -1,6 +1,8 @@
 // Import components
 import React from 'react';
 import ItemGrid from './itemGrid';
+import NotImplemented from './notImplemented';
+import {Link} from 'react-router-dom';
 import { Card, Image, Button, Container, Loader, Dimmer } from 'semantic-ui-react';
 // Import assets
 import white_image from '../images/white-image.png';
@@ -93,8 +95,8 @@ class FileGrid extends React.Component {
             </Card.Content>
             <Card.Content extra>
                     <div className='ui two buttons'>
-                        <Button basic link color='blue'>View Info</Button>
-                        <Button basic link color='green'>Download</Button>
+                        {NotImplemented(<Button basic as={Link} to='' color='blue'>View Info</Button>)}
+                        {NotImplemented(<Button basic as={Link} to='' color='green'>Download</Button>)}
                     </div>
             </Card.Content>
         </Card>
