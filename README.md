@@ -73,9 +73,9 @@ Do not do any performance testing on these debug builds.
 
 ### Application Performance Testing
 To test a production-optimized version of the application, run the following commands.
-1. cd to the filehub root directory and run 'npm install'.
+1. cd to the filehub root directory and run `npm install`.
 2. build the latest front-end with `npm run build`
-3. launch the server with 'node server.js'
+3. launch the server with `node server.js`
 4. Connect to http://localhost:8080/ in your favorite browser
 
 Running the application in this way is more straightforward and performant,  but the build takes a while to complete.
