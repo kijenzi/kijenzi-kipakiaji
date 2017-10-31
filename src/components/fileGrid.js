@@ -5,6 +5,15 @@ import { Card, Image, Button, Container, Loader, Dimmer } from 'semantic-ui-reac
 // Import assets
 import white_image from '../images/white-image.png';
 
+// Import sample images
+// This is only for demonstration purposes at the moment
+// and will be removed in a future commit
+import brace from '../images/sample_brace.jpg'
+import gearbox from '../images/sample_gearbox.jpg'
+import respirator from '../images/sample_respirator.jpg'
+import scissors from '../images/sample_scissors.jpg'
+import speculum from '../images/sample_speculum.jpg'
+
 class FileGrid extends React.Component {
     constructor() {
         super();
@@ -27,38 +36,40 @@ class FileGrid extends React.Component {
     /**
      * Retrieve JSON information about files availble for download
      * from the server. The server will run its own functions to
-     * create this JSON
+     * create this JSON.
      */
     retrieveItems = () => (
+        // This is only for demonstration purposes at the moment
+        // and will be removed in a future commit
         [
             {
-                name: 'TestFile1.gcode',
+                name: 'brace.stl',
                 size: '400kb',
-                thumb_URI: null,
+                thumb_URI: brace,
                 file_URI: null
             },
             {
-                name: 'TestFile2.gcode',
+                name: 'gearbox.stl',
                 size: '123kb',
-                thumb_URI: null,
+                thumb_URI: gearbox,
                 file_URI: null
             },
             {
-                name: 'TestFile3.gcode',
+                name: 'respirator.stl',
                 size: '934kb',
-                thumb_URI: null,
+                thumb_URI: respirator,
                 file_URI: null
             },
             {
-                name: 'TestFile4.gcode',
+                name: 'scissors.stl',
                 size: '156kb',
-                thumb_URI: null,
+                thumb_URI: scissors,
                 file_URI: null
             },
             {
-                name: 'TestFile5.gcode',
+                name: 'speculum.stl',
                 size: '523kb',
-                thumb_URI: null,
+                thumb_URI: speculum,
                 file_URI: null
             }
         ]
@@ -66,7 +77,7 @@ class FileGrid extends React.Component {
 
 
     /**
-     * JSX template for translating an item into a card 
+     * JSX template for translating an item into a card
      * @param {*} item containing information for a file to be
      *  displayed
      */
@@ -93,7 +104,7 @@ class FileGrid extends React.Component {
         /*An instance of an item grid configured in the right */
         /*way. Or, if there are no files available from the   */
         /*server, an image declaring that there are no files  */
-        /*to be downloaded                                    */ 
+        /*to be downloaded                                    */
         return (
             <Container style={{ paddingTop: '7em' }}>
                 <Dimmer active={this.state.loading}>
