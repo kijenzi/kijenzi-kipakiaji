@@ -31,7 +31,7 @@ class FileGrid extends React.Component {
         // Wrap in promise or async/await
         const files = this.retrieveItems();
         this.setState({
-            items:files,
+            items: files,
             loading: false
         });
     }
@@ -111,22 +111,24 @@ class FileGrid extends React.Component {
             <Card.Content extra>
                     <div className='ui two buttons'>
                         <FileModal
-                        trigger={
-                            <Button basic as={Link} to='' color='blue'>View Info</Button>
-                        }
-                        item={item}
+                            trigger={
+                                <Button basic as={Link} to='' color='blue'>View Info</Button>
+                            }
+                            item={item}
                         />
-                        {NotImplemented(<Button basic as={Link} to='' color='green'>Download</Button>)}
+                        {NotImplemented(
+                            <Button basic as={Link} to='' color='green'>Download</Button>
+                        )}
                     </div>
             </Card.Content>
         </Card>
     )
 
     render() {
-        /*An instance of an item grid configured in the right */
-        /*way. Or, if there are no files available from the   */
-        /*server, an image declaring that there are no files  */
-        /*to be downloaded                                    */
+        /* An instance of an item grid configured in the right */
+        /* way. Or, if there are no files available from the   */
+        /* server, an image declaring that there are no files  */
+        /* to be downloaded                                    */
         return (
             <Container style={{ paddingTop: '7em' }}>
                 <Dimmer active={this.state.loading}>

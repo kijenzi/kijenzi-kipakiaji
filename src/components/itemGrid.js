@@ -20,9 +20,10 @@ class ItemGrid extends React.Component {
 
     /**
      * Map an input item with a renderable template
+     *
      * @param {*} items containing information readable by the
      *  template function
-     * @param {*} template function that reads an item and 
+     * @param {*} template function that reads an item and
      *  returns an appropriate JSX view for it
      */
     mapItems(items, template) {
@@ -37,7 +38,7 @@ class ItemGrid extends React.Component {
         return (
             <Grid container stackable columns={4}>
                 {
-                    this.state.items.length ? this.state.items : 
+                    this.state.items.length ? this.state.items :
                     (
                         <Grid.Column>
                             <h1>No Items</h1>

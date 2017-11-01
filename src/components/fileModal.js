@@ -3,11 +3,50 @@ import React from 'react';
 import { Image, Modal, Header, Input, Form, Button} from 'semantic-ui-react';
 import NotImplemented from './notImplemented';
 
+/*
+	A FileModal is a popup that displays information about a downloadable item.
+	Expected props:
+		trigger: a UI element (jsx or otherwise) that when clicked, will make this
+			modal 'pop-up' or appear.
+		item: a downloadable item object with properties that describes the file
+			required properties:
+			{
+				name: (string) The name of the file,
+				size: (string) The filesize, with units preferably,
+				thumb_URI: (string) The location of the file's image,
+				file_URI: (string) Link to the un-modified file location
+				variables (optional): (array[object]) configurable parameters that will
+					 be converted into a Form input.
+					 Each object should contain the following properties:
+					 {
+						name: (string) The variable's name / input label,
+						description: (string) Description of the variable,
+						unit: (string) The unit of the variable's value,
+						min (optional): (int) If value is of type 'number', the min
+							possible value of that number,
+						max (optional): (int) If value is of type 'number', the max
+							possible value of that number,
+						type: (string) 'number' or 'bool',
+						value: (type) the default / current value
+					 }
+			}
+ */
 class FileModal extends React.Component {
+
+	/**
+	 * Generate form inputs based on an item's parameterized variables
+	 *
+	 * @param  {[Object]} item An item that should have forms generated for it
+	 * @return {[Array]} An array of Form.Field elements
+	 */
 	generateForms = (item) => {
 		let inputs = [];
+
+		// Parse item's parameterized variables if it has any
 		for (let variable in item.variables) {
 			let v = item.variables[variable];
+
+			// Create the Form.Field element for a particular variable
 			inputs.push(
 				<Form.Field key={variable}>
 					<label>{v.name}</label>
@@ -20,6 +59,7 @@ class FileModal extends React.Component {
 			);
 		}
 
+		// Add download and reset buttons if customization options are present
 		if (inputs.length) {
 			inputs.push(
 				<Form.Field className='ui two buttons' key={inputs.length}>
@@ -28,6 +68,8 @@ class FileModal extends React.Component {
 				</Form.Field>
 			)
 		} else {
+			// If there are not customization options, add text saying so and
+			// disable customization options
 			inputs.push(
 				<Form.Field key={inputs.length}>
 					<label>No customization options available</label>
@@ -46,6 +88,9 @@ class FileModal extends React.Component {
 
 	render() {
 		return(
+			{/* File information popup                                                */}
+			{/* Note: the prop, 'trigger', is the element that will invoke this popup */}
+			{/* So yes, you wrap the calling button in this element...                */}
 			<Modal trigger={this.props.trigger} closeIcon>
 				<Modal.Header>File Information</Modal.Header>
 				<Modal.Content>
