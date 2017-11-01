@@ -53,15 +53,21 @@ class FileGrid extends React.Component {
                 variables:[
                     {
                         name: 'Length',
-                        Description: 'The length of the thingy',
+                        description: 'The length of the thingy',
                         unit: 'mm',
                         value: 1
                     },
                     {
                         name: 'Height',
-                        Description: 'The height of the thingy',
+                        description: 'The height of the thingy',
                         unit: 'mm',
                         value: 10
+                    },
+                    {
+                        name: 'Wrist extension',
+                        description: 'Brace extends to the wrist',
+                        value: true,
+                        type: 'checkbox'
                     }
                 ]
             },

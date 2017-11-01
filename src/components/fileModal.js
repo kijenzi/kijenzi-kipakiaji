@@ -1,6 +1,6 @@
 // Import components
 import React from 'react';
-import { Image, Modal, Header, Input, Form, Button} from 'semantic-ui-react';
+import { Image, Modal, Header, Input, Form, Button, Checkbox} from 'semantic-ui-react';
 import NotImplemented from './notImplemented';
 
 /*
@@ -26,7 +26,7 @@ import NotImplemented from './notImplemented';
 							possible value of that number,
 						max (optional): (int) If value is of type 'number', the max
 							possible value of that number,
-						type: (string) 'number' or 'bool',
+						type: (string) 'number' or 'checkbox',
 						value: (type) the default / current value
 					 }
 			}
@@ -47,14 +47,23 @@ class FileModal extends React.Component {
 			let v = item.variables[variable];
 
 			// Create the Form.Field element for a particular variable
+			// Render a checkbox if specified, otherwise render a number input
 			inputs.push(
 				<Form.Field key={variable}>
 					<label>{v.name}</label>
-					<Input
-						placeholder={v.Description}
-						label={{basic:true, content:v.unit}}
-						labelPosition='right'
-					/>
+					{
+						v.type === 'checkbox' ?
+							<Checkbox
+								label={v.description}
+							/>
+						:
+							<Input
+								placeholder={v.description}
+								label={{basic:true, content:v.unit}}
+								labelPosition='right'
+								type='number'
+							/>
+					}
 				</Form.Field>
 			);
 		}
@@ -87,10 +96,10 @@ class FileModal extends React.Component {
 	}
 
 	render() {
+		/* File information popup                                                */
+		/* Note: the prop, 'trigger', is the element that will invoke this popup */
+		/* So yes, you wrap the calling button in this element...                */
 		return(
-			{/* File information popup                                                */}
-			{/* Note: the prop, 'trigger', is the element that will invoke this popup */}
-			{/* So yes, you wrap the calling button in this element...                */}
 			<Modal trigger={this.props.trigger} closeIcon>
 				<Modal.Header>File Information</Modal.Header>
 				<Modal.Content>
