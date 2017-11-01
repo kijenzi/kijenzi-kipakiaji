@@ -4,6 +4,7 @@ import ItemGrid from './itemGrid';
 import NotImplemented from './notImplemented';
 import {Link} from 'react-router-dom';
 import { Card, Image, Button, Container, Loader, Dimmer } from 'semantic-ui-react';
+import FileModal from './fileModal';
 // Import assets
 import white_image from '../images/white-image.png';
 
@@ -48,7 +49,21 @@ class FileGrid extends React.Component {
                 name: 'brace.stl',
                 size: '400kb',
                 thumb_URI: brace,
-                file_URI: null
+                file_URI: null,
+                variables:[
+                    {
+                        name: 'Length',
+                        Description: 'The length of the thingy',
+                        unit: 'mm',
+                        value: 1
+                    },
+                    {
+                        name: 'Height',
+                        Description: 'The height of the thingy',
+                        unit: 'mm',
+                        value: 10
+                    }
+                ]
             },
             {
                 name: 'gearbox.stl',
@@ -95,7 +110,12 @@ class FileGrid extends React.Component {
             </Card.Content>
             <Card.Content extra>
                     <div className='ui two buttons'>
-                        {NotImplemented(<Button basic as={Link} to='' color='blue'>View Info</Button>)}
+                        <FileModal
+                        trigger={
+                            <Button basic as={Link} to='' color='blue'>View Info</Button>
+                        }
+                        item={item}
+                        />
                         {NotImplemented(<Button basic as={Link} to='' color='green'>Download</Button>)}
                     </div>
             </Card.Content>
