@@ -42,60 +42,7 @@ class FileGrid extends React.Component {
      * create this JSON.
      */
     retrieveItems = () => (
-        // This is only for demonstration purposes at the moment
-        // and will be removed in a future commit
-        [
-            {
-                name: 'brace.stl',
-                size: '400kb',
-                thumb_URI: brace,
-                file_URI: null,
-                variables:[
-                    {
-                        name: 'Length',
-                        description: 'The length of the thingy',
-                        unit: 'mm',
-                        value: 1
-                    },
-                    {
-                        name: 'Height',
-                        description: 'The height of the thingy',
-                        unit: 'mm',
-                        value: 10
-                    },
-                    {
-                        name: 'Wrist extension',
-                        description: 'Brace extends to the wrist',
-                        value: true,
-                        type: 'checkbox'
-                    }
-                ]
-            },
-            {
-                name: 'gearbox.stl',
-                size: '123kb',
-                thumb_URI: gearbox,
-                file_URI: null
-            },
-            {
-                name: 'respirator.stl',
-                size: '934kb',
-                thumb_URI: respirator,
-                file_URI: null
-            },
-            {
-                name: 'scissors.stl',
-                size: '156kb',
-                thumb_URI: scissors,
-                file_URI: null
-            },
-            {
-                name: 'speculum.stl',
-                size: '523kb',
-                thumb_URI: speculum,
-                file_URI: null
-            }
-        ]
+        // Call /api/files
     )
 
 

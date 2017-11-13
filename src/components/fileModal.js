@@ -22,10 +22,6 @@ import NotImplemented from './notImplemented';
 						name: (string) The variable's name / input label,
 						description: (string) Description of the variable,
 						unit: (string) The unit of the variable's value,
-						min (optional): (int) If value is of type 'number', the min
-							possible value of that number,
-						max (optional): (int) If value is of type 'number', the max
-							possible value of that number,
 						type: (string) 'number' or 'checkbox',
 						value: (type) the default / current value
 					 }
