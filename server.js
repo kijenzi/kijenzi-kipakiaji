@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 //-------------------------------------------------------------------
 app.listen(8080, () => {
 	// Print server IP, port, other info
-	console.log('Filehub is running on port 8080');
+	console.log('Kijenzi-Kipakiaji is running on port 8080');
 	console.log('Access in your browser via: ');
 	console.log('    http://localhost/:8080');
 });

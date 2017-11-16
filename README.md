@@ -50,18 +50,18 @@ If using Windows, I __highly__ recommend using the Ubuntu Subsystem that provide
 
 2. Clone this repository
   1. In your favorite terminal, navigate to whatever directory you want to store this repo in
-  2. Run `git clone https://github.com/cephalization/filehub`
+  2. Run `git clone https://github.com/cephalization/kijenzi-kipakiaji`
 
 3. Install package dependencies
-  1. In your favorite terminal, navigate into the newly cloned filehub directory
+  1. In your favorite terminal, navigate into the newly cloned kijenzi-kipakiaji directory
   2. Run `npm install`. This should download a bunch of packages in the node_modules folder. __Make sure this exists__
 
 From this point on, there should not be any platform disparities as far as development goes.
 
 ### Application Debugging
-All of these steps should be completed in the root of the `filehub` directory
+All of these steps should be completed in the root of the `kijenzi-kipakiaji` directory
 
-1. cd to the filehub root directory and run `npm install`.
+1. cd to the kijenzi-kipakiaji root directory and run `npm install`.
 2. Launch the API Server
   - If you do not care about logging, run `node server.js &`
   - If you do care about logging, open a new window/tab/whatever and run `node server.js`
@@ -73,7 +73,7 @@ Do not do any performance testing on these debug builds.
 
 ### Application Performance Testing
 To test a production-optimized version of the application, run the following commands.
-1. cd to the filehub root directory and run `npm install`.
+1. cd to the kijenzi-kipakiaji root directory and run `npm install`.
 2. build the latest front-end with `npm run build`
 3. launch the server with `node server.js`
 4. Connect to http://localhost:8080/ in your favorite browser

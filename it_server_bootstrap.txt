@@ -1,5 +1,5 @@
 This guide contains instructions on bootstrapping a PC to function as
-a server for filehub.
+a server for kijenzi-kipakiaji.
 
 Feel free to contribute to this document if any config changes are
 made.
@@ -9,8 +9,8 @@ made.
 Installed Program requirements
 ---------------------------------------
 Install NodeJS, nginx
-clone filehub to ~/repos/filehub
-Using npm: install pm2 -g, filehub reqs
+clone kijenzi-kipakiaji to ~/repos/kijenzi-kipakiaji
+Using npm: install pm2 -g, kijenzi-kipakiaji reqs
 ---------------------------------------
 Configure PM2
 ---------------------------------------

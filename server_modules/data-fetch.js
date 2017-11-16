@@ -1,7 +1,7 @@
 /**
  * A platform agnostic data fetcher.
  *
- * Provides a reliable internal API for filehub's server_modules
+ * Provides a reliable internal API for kijenzi-kipakiaji's server_modules
  * so that a given data platform does not leave a large signature on
  * the codebase.
  *
