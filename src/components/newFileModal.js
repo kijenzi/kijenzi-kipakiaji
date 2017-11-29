@@ -117,7 +117,7 @@ class FileModal extends React.Component {
 		)
 		inputs.push(
 			<Form.Field className='ui two buttons' key={inputs.length}>
-				{NotImplemented(<Button basic color='green'>Download</Button>)}
+				{NotImplemented(<Button basic color='blue'>Upload</Button>)}
 				<Button basic color='red' onClick={this.clearFields}>Reset Customization</Button>
 			</Form.Field>
 		)
