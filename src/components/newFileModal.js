@@ -122,51 +122,6 @@ class FileModal extends React.Component {
 			</Form.Field>
 		)
 
-		// // Parse item's parameterized variables if it has any
-		// for (let variable in item.variables) {
-		// 	let v = item.variables[variable];
-
-		// 	// Create the Form.Field element for a particular variable
-		// 	// Render a checkbox if specified, otherwise render a number input
-		// 	inputs.push(
-		// 		<Form.Field key={variable}>
-		// 			<label>{v.name}</label>
-		// 			{
-		// 				v.type === 'checkbox' ?
-		// 					<Checkbox
-		// 						label={v.description}
-		// 					/>
-		// 				:
-		// 					<Input
-		// 						placeholder={v.description}
-		// 						label={{basic:true, content:v.unit}}
-		// 						labelPosition='right'
-		// 						type='number'
-		// 					/>
-		// 			}
-		// 		</Form.Field>
-		// 	);
-		// }
-
-		// // Add download and reset buttons if customization options are present
-		// if (inputs.length) {
-		
-		// } else {
-		// 	// If there are not customization options, add text saying so and
-		// 	// disable customization options
-		// 	inputs.push(
-		// 		<Form.Field key={inputs.length}>
-		// 			<label>No customization options available</label>
-		// 		</Form.Field>
-		// 	)
-		// 	inputs.push(
-		// 		<Form.Field className='ui two buttons' key={inputs.length}>
-		// 			{NotImplemented(<Button basic color='green'>Download</Button>)}
-		// 			{NotImplemented(<Button basic disabled color='red'>Reset Customization</Button>)}
-		// 		</Form.Field>
-		// 	)
-		// }
-
 		return inputs;
 	}
 
