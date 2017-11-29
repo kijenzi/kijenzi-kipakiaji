@@ -20,6 +20,11 @@ class FileModal extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 
+	/**
+	 * Event Handler for saving an image and its info to state
+	 * 
+	 * @param event Image file
+	 */
 	handleImageChange = (event) => {
 		// Allow further async functions to proceed
 		event.persist();
@@ -32,6 +37,11 @@ class FileModal extends React.Component {
 		}
 	}
 
+	/**
+	 * Event Handler for saving a file and its info to state
+	 * 
+	 * @param event File
+	 */
 	handleFileChange = (event) => {
 		this.setState({
 			file: event.target.value,
@@ -39,10 +49,21 @@ class FileModal extends React.Component {
 		})
 	}
 
+	/**
+	 * Event Handler for two-way binding an input with state
+	 * 
+	 * @param event Input changes from the user
+	 */
 	handleChange = (event) => (
 		this.setState({[event.target.name]: event.target.value})
 	);
 
+	/**
+	 * Reset all state values
+	 * 
+	 * Since the input and state are two-way bound this will reset
+	 * the form as well
+	 */
 	clearFields = () => {
 		this.setState({
 			file: null,
@@ -126,7 +147,7 @@ class FileModal extends React.Component {
 	}
 
 	render() {
-		/* File information popup                                                */
+		/* File upload popup                                                     */
 		/* Note: the prop, 'trigger', is the element that will invoke this popup */
 		/* So yes, you wrap the calling button in this element...                */
 		return(
