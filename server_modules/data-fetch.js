@@ -41,6 +41,31 @@ const UserInfo = {
 module.exports.GetUserInfo = UserInfo.fetch;
 
 /**
+ * Given a filter, return uploaded files
+ *
+ * Notable schema features:
+ *  files: this property contains an array of 'FileMeta'.
+ * 	 See 'FileMeta' definition
+ *  filter: this property contains query filters to be applied
+ *   on the retrieval of the files collection
+ *
+ * @type {Object}
+ */
+const Files = {
+	get: (filter) => {
+		// Plug in platform specific data retrieval logic
+	},
+	schema: {
+		files: 'array', // See: FileMeta
+		filter: {
+			limit: 'int',
+			start_index: 'int'
+		}
+	}
+};
+module.exports.GetFileCollection = Files.fetch;
+
+/**
  * Simple schema for file meta information
  * @type {Object}
  */
@@ -51,6 +76,32 @@ const FileMeta = {
 		thumb_uri: 'string'
 	}
 };
+
+/**
+ * Given a file_ID, return information about an uploaded file
+ *
+ * Notable schema features:
+ *  variables: (optional) this property contains an array of
+ *   'FileVariable'. See 'FileVariable' definition.
+ *
+ * @type {Object}
+ */
+const File = {
+	get: (file_ID) => {
+		// Plug in platform specific data retrieval logic
+	},
+	set: (File) => {
+		// Plug in platform specific data saving logic
+	},
+	schema: {
+		name: 'string',
+		size: 'string',
+		thumb_uri: 'string',
+		file_URI: 'string',
+		variables: 'array' // See: FileVariable
+	}
+};
+module.exports.GetFileResource = File.fetch;
 
 /**
  * Simple schema for file variables
@@ -64,6 +115,8 @@ const FileMeta = {
  *   'value'.
  *  value: the default value of a given property. Can be an int value
  *   of physical type 'unit' or a toggleable boolean.
+ *  minimum_value (optional): Appears if type === 'input'
+ *  maximum_value (optional): Appears if type === 'input'
  *
  * @type {Object}
  */
@@ -71,57 +124,9 @@ const FileVariable = {
 	schema: {
 		name: 'string',
 		description: 'string',
-		unit: 'string',
 		type: 'string',
-		value: 'int || boolean'
+		value: 'int || boolean',
+		minimum_value: 'number',
+		maximum_value: 'number'
 	}
 };
-
-
-/**
- * Given a filter, return uploaded files
- *
- * Notable schema features:
- *  files: this property contains an array of 'FileMeta'.
- * 	 See 'FileMeta' definition
- *  filter: this property contains query filters to be applied
- *   on the retrieval of the files collection
- *
- * @type {Object}
- */
-const Files = {
-	fetch: (filter) => {
-		// Plug in platform specific data retrieval logic
-	},
-	schema: {
-		files: 'array',
-		filter: {
-			limit: 'int',
-			start_index: 'int'
-		}
-	}
-};
-module.exports.GetFileCollection = Files.fetch;
-
-/**
- * Given a file_ID, return information about an uploaded file
- *
- * Notable schema features:
- *  variables: (optional) this property contains an array of
- *   'FileVariable'. See 'FileVariable' definition.
- *
- * @type {Object}
- */
-const File = {
-	fetch: (file_ID) => {
-		// Plug in platform specific data retrieval logic
-	},
-	schema: {
-		name: 'string',
-		size: 'string',
-		thumb_uri: 'string',
-		file_URI: 'string',
-		variables: 'array'
-	}
-};
-module.exports.GetFileResource = File.fetch;

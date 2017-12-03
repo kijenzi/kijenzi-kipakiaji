@@ -1,7 +1,7 @@
 // Import components
 import React from 'react';
-import { Image, Modal, Header, Input, Form, Button, Icon, Divider} from 'semantic-ui-react';
-import NotImplemented from './notImplemented';
+import { Image, Modal, Header, Input, Form, Button, Icon, Divider, Dropdown} from 'semantic-ui-react';
+import FileSubmit from './fileSubmit';
 
 // Import assets
 import white_image from '../images/white-image.png';
@@ -10,15 +10,24 @@ class FileModal extends React.Component {
 
 	constructor() {
 		super();
-		this.state = {
+		this.state = this.getInitialState();
+		this.handleChange = this.handleChange.bind(this);
+		this.generateCustomForms = this.generateCustomForms.bind(this);
+		this.clearFields = this.clearFields.bind(this);
+		this.isStateClean = this.isStateClean.bind(this);
+		this.isValidFile = this.isValidFile.bind(this);
+	}
+
+	getInitialState = () => (
+		{
 			filename: '',
 			description: '',
 			file: null,
 			thumbnail: null,
-			variables: null
+			variables: [],
+			variable_inputs: []
 		}
-		this.handleChange = this.handleChange.bind(this);
-	}
+	)
 
 	/**
 	 * Event Handler for saving an image and its info to state
@@ -65,26 +74,25 @@ class FileModal extends React.Component {
 	 * the form as well
 	 */
 	clearFields = () => {
-		this.setState({
-			file: null,
-			thumbnail: null,
-			filename: '',
-			description: ''
-		})
+		// this.setState({
+		// 	file: null,
+		// 	thumbnail: null,
+		// 	filename: '',
+		// 	description: '',
+		// 	variables: [],
+		// 	variable_inputs: []
+		// })
+		this.setState(this.getInitialState());
 	}
 
 	/**
-	 * Generate form inputs based on an item's parameterized variables
+	 * Generate default form inputs
 	 *
-	 * @param  {[Object]} item An item that should have forms generated for it
 	 * @return {[Array]} An array of Form.Field elements
 	 */
-	generateForms = () => {
-
-		let inputs = [];
-
+	generateDefaultForms = () => (
 		// Generate the default inputs; name, description, thumbnail
-		inputs.push(
+		[
 			<Form.Field key='File'>
 				<label htmlFor="file" style={{cursor: 'pointer'}}>
 					<Icon name="file outline" size="big"/>
@@ -94,12 +102,11 @@ class FileModal extends React.Component {
 						name='file'
 						id='file'
 						type='file'
-						style={{display: 'None'}} 
+						style={{display: 'None'}}
+						// required
 					/>
 				</label>
-			</Form.Field>
-		)
-		inputs.push(
+			</Form.Field>,
 			<Form.Field key='Thumbnail'>
 				<label htmlFor="thumbnail" style={{cursor: 'pointer'}}>
 					<Icon name="image" size="big"/>
@@ -112,20 +119,17 @@ class FileModal extends React.Component {
 						style={{display: 'None'}} 
 					/>
 				</label>
-			</Form.Field>
-		)
-		inputs.push(
+			</Form.Field>,
 			<Form.Field key='FileName'>
 				<label>Filename</label>
 				<Input
 					onChange={this.handleChange}
 					placeholder='Enter a filename'
 					value={this.state.filename}
-					name='filename' 
+					name='filename'
+					// required
 				/>
-			</Form.Field>
-		)
-		inputs.push(
+			</Form.Field>,
 			<Form.Field key='Description'>
 				<label>File Description</label>
 				<Input
@@ -135,15 +139,89 @@ class FileModal extends React.Component {
 					name='description' 
 				/>
 			</Form.Field>
-		)
-		inputs.push(
-			<Form.Field className='ui two buttons' key={inputs.length}>
-				{NotImplemented(<Button basic color='blue'>Upload</Button>)}
-				<Button basic color='red' onClick={this.clearFields}>Reset Customization</Button>
-			</Form.Field>
-		)
+			]
+	)
 
-		return inputs;
+	generateCustomForms = () => (
+		this.props.type === 'custom' ?
+		[
+		<Form.Field key='custom'>
+			<Button label='Add Variable' icon='plus' labelPosition='left' onClick={this.addVariableInput}/>
+		</Form.Field>,
+		<Divider key='divider' />,
+		...this.state.variable_inputs
+		] : []
+	)
+
+	isStateClean = () => {
+		// Check if there are custom variables set
+		if (this.state.variable_inputs.length || this.state.variables.length) return false
+
+		// Check individual properties for differences
+		for (let p in this.state) {
+			if (this.getInitialState().hasOwnProperty(p)) {
+				if (this.state[p] !== this.getInitialState()[p]) {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	isValidFile = () => {
+		const file = this.state;
+
+		return (
+			(file.filename.includes('.stl') || file.filename.includes('.gcode')) &&
+			file.file != null
+		)
+	}
+
+	addVariableInput = () => {
+		let inputs = this.state.variable_inputs;
+		const variable_types = [
+			{
+				text: 'Dimension',
+				value: 'dimension'
+			},
+			{
+				text: 'Toggle',
+				value: 'toggle'
+			}
+		]
+		const variable = (
+			<div key={inputs.length}>
+				<Form.Group widths='4'>
+					<Form.Field>
+						<label>Variable Type</label>
+						<Dropdown fluid selection placeholder="Choose type" options={variable_types}/>
+					</Form.Field>
+					<Form.Field>
+						<label>Parameter name</label>
+						<Input placeholder='OpenScad variable name' />
+					</Form.Field>
+					<Form.Field>
+						<label>Minimum Value</label>
+						<Input label='mm' labelPosition='right' />
+					</Form.Field>
+					<Form.Field>
+						<label>Maximum Value</label>
+						<Input label='mm' labelPosition='right' />
+					</Form.Field>
+				</Form.Group>
+				<Form.Field>
+					<label>Description</label>
+					<Input />
+				</Form.Field>
+				<Divider />
+			</div>
+		);
+
+		inputs.push(variable);
+		this.setState({variable_inputs: inputs});
 	}
 
 	render() {
@@ -151,7 +229,7 @@ class FileModal extends React.Component {
 		/* Note: the prop, 'trigger', is the element that will invoke this popup */
 		/* So yes, you wrap the calling button in this element...                */
 		return(
-			<Modal trigger={this.props.trigger} closeIcon>
+			<Modal trigger={this.props.trigger} onClose={this.clearFields} closeIcon>
 				<Modal.Header>Upload {this.props.type} File Type</Modal.Header>
 				<Modal.Content>
 					<Header as="h2">File Preview</Header>
@@ -171,7 +249,12 @@ class FileModal extends React.Component {
 				<Modal.Content>
 					<Header as='h2'>File Customization</Header>
 					<Form>
-						{this.generateForms()}
+						{this.generateDefaultForms().concat(this.generateCustomForms())}
+						<FileSubmit
+							disableUpload={!this.isValidFile()}
+							clearFields={this.clearFields}
+							cleanState={this.isStateClean}
+							submission={this.state}/>
 					</Form>
 				</Modal.Content>
 			</Modal>

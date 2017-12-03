@@ -26,7 +26,7 @@ class FileGrid extends React.Component {
                             trigger={
                                 <Button primary>Customizable</Button>
                             }
-                            type='customizable'
+                            type='custom'
                             />
                         </Button.Group>
                     </Grid.Row>
