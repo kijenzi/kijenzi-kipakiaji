@@ -16,8 +16,12 @@ class FileModal extends React.Component {
 		this.clearFields = this.clearFields.bind(this);
 		this.isStateClean = this.isStateClean.bind(this);
 		this.isValidFile = this.isValidFile.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	/**
+	 * Definition of initial newFileModal state
+	 */
 	getInitialState = () => (
 		{
 			filename: '',
@@ -30,13 +34,81 @@ class FileModal extends React.Component {
 	)
 
 	/**
+	 * Create Form object to send in fetch request
+	 */
+	getRequestForm = (submission) => {
+		let form = new FormData();
+		for (let item in submission) {
+			if (submission.hasOwnProperty[item]) {
+				switch (item) {
+					case 'thumbnail':
+						form.append(
+							item,
+							submission[item],
+							'thumbnail.jpeg'
+						);
+						break;
+					case 'file':
+						form.append(
+							item,
+							submission[item],
+							submission['filename']
+						);
+						break;
+					case 'filename':
+						break;
+					default:
+						form.append(item, submission[item]);
+				}
+			}
+		}
+
+		return form;
+	}
+
+	handleSubmit = () => {
+		if (this.isValidFile) {
+			const submission = {
+				'filename': this.state.filename,
+				'file': this.state.file,
+				'description': this.state.description,
+				'thumbnail': this.state.thumbnail,
+				'size': this.state.size,
+				'variables': this.state.variables
+			}
+			const targetURI = this.props.type === 'static' ?
+				'uploadStaticFile' : 'uploadCustomFile';
+
+			// POST multipart form / data
+			fetch(window.location.host + '/api/' + targetURI,
+			{
+				method: 'post',
+				credentials: 'omit',
+				body: this.getRequestForm(submission)
+			})
+			.then(
+				response => (
+					true
+				)
+			)
+			.catch(error => (
+				alert('Oops, there has been an error uploading the' +
+				' file:\n' + error)
+			))
+			// return true if successful
+		}
+
+		return false;
+	}
+
+	/**
 	 * Event Handler for saving an image and its info to state
 	 * 
 	 * @param event Image file
 	 */
 	handleImageChange = (event) => {
 		// Allow further async functions to proceed
-		event.persist();
+		event.persist();		
 		// Setup a file reader to preview the user-selected image
 		let file = new FileReader();
 		file.readAsDataURL(event.target.files[0]);
@@ -52,10 +124,22 @@ class FileModal extends React.Component {
 	 * @param event File
 	 */
 	handleFileChange = (event) => {
-		this.setState({
-			file: event.target.value,
-			filename: event.target.files[0].name
-		})
+		// Store filename and file size (in MB)
+		const filename = event.target.files[0].name;
+		const size = event.target.files[0].size / 1024*1024;
+		let file = new FileReader();
+
+		event.persist();
+		file.readAsDataURL(event.target.files[0]);
+		file.onload = (fileLoaded) => {
+			// When the user's image is loaded, put it in state and display it
+			this.setState({
+				[event.target.name]: fileLoaded.target.result,
+				filename,
+				size
+			});
+			console.log(this.state.size);
+		}
 	}
 
 	/**
@@ -74,14 +158,6 @@ class FileModal extends React.Component {
 	 * the form as well
 	 */
 	clearFields = () => {
-		// this.setState({
-		// 	file: null,
-		// 	thumbnail: null,
-		// 	filename: '',
-		// 	description: '',
-		// 	variables: [],
-		// 	variable_inputs: []
-		// })
 		this.setState(this.getInitialState());
 	}
 
@@ -142,6 +218,9 @@ class FileModal extends React.Component {
 			]
 	)
 
+	/**
+	 * Generate a button to allow adding custom inputs to the form
+	 */
 	generateCustomForms = () => (
 		this.props.type === 'custom' ?
 		[
@@ -153,6 +232,11 @@ class FileModal extends React.Component {
 		] : []
 	)
 
+	/**
+	 * Verify that the state is clean
+	 * 
+	 * TODO: There's a better way to do this I am sure
+	 */
 	isStateClean = () => {
 		// Check if there are custom variables set
 		if (this.state.variable_inputs.length || this.state.variables.length) return false
@@ -171,15 +255,22 @@ class FileModal extends React.Component {
 		return true;
 	}
 
+	/**
+	 * Simple check to determine file has right extension
+	 */
 	isValidFile = () => {
 		const file = this.state;
 
 		return (
 			(file.filename.includes('.stl') || file.filename.includes('.gcode')) &&
-			file.file != null
+			file.file != null &&
+			this.props.type === 'static'
 		)
 	}
 
+	/**
+	 * Generate a variable input field
+	 */
 	addVariableInput = () => {
 		let inputs = this.state.variable_inputs;
 		const variable_types = [
@@ -254,7 +345,7 @@ class FileModal extends React.Component {
 							disableUpload={!this.isValidFile()}
 							clearFields={this.clearFields}
 							cleanState={this.isStateClean}
-							submission={this.state}/>
+							submission={this.handleSubmit}/>
 					</Form>
 				</Modal.Content>
 			</Modal>

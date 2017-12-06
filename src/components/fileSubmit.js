@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Button} from 'semantic-ui-react';
-import NotImplemented from './notImplemented';
 
 /**
  * File submission inputs
@@ -21,12 +20,13 @@ class FileSubmit extends React.Component {
 
     render = () => (
         <Form.Field className='ui two buttons' key='buttons'>
-            {NotImplemented(<Button 
-                                basic
-                                color='blue'
-                                disabled={this.isUploadDisabled()}>
-                                Upload
-                            </Button>)}
+            <Button 
+                basic
+                color='blue'
+                disabled={this.isUploadDisabled()}
+                onClick={this.props.submission}>
+                Upload
+            </Button>
             <Button
                 basic 
                 color='red'
